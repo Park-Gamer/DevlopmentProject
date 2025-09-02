@@ -24,6 +24,9 @@ public class FirstPersonMovement : MonoBehaviour
     private Vector3 defaultCamLocalPos;
     private float bobTimer = 0f;
 
+    [Header("Animation Settings")]
+    public Animator anim;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -71,6 +74,15 @@ public class FirstPersonMovement : MonoBehaviour
         velocityChange.y = 0f; // Keep Y velocity (gravity/jump) unchanged
 
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
+
+        if(move.magnitude > 0.3f) 
+        {
+            anim.SetBool("isWalking", true);
+        }
+        else
+        {
+            anim.SetBool("isWalking", false);
+        }
     }
 
     void HandleHeadBob()
